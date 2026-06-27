@@ -4,16 +4,16 @@
 
 using namespace godot;
 
-class Win32Passthrough : public Object {
-    GDCLASS(Win32Passthrough, Object)
+class MousePassthrough : public Object {
+    GDCLASS(MousePassthrough, Object)
 
-    static Win32Passthrough *singleton;
+    static MousePassthrough *singleton;
 
 public:
-    static Win32Passthrough *get_singleton();
+    static MousePassthrough *get_singleton();
 
-    Win32Passthrough();
-    ~Win32Passthrough();
+    MousePassthrough();
+    ~MousePassthrough();
 
     void set_passthrough(int64_t window_id, bool enabled);
 

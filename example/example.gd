@@ -16,13 +16,13 @@ func _ready() -> void:
 	timer.timeout.connect(_on_tick)
 	button.pressed.connect(_start)
 
-	if not Engine.has_singleton("Win32Passthrough"):
+	if not Engine.has_singleton("MousePassthrough"):
 		status_label.text = "Not available (Windows only)"
 		button.disabled = true
 
 
 func _start() -> void:
-	Engine.get_singleton("Win32Passthrough").set_passthrough(get_window().get_window_id(), true)
+	Engine.get_singleton("MousePassthrough").set_passthrough(get_window().get_window_id(), true)
 
 	button.disabled = true
 	status_label.text = "Clicks are passing through the window!"
@@ -50,7 +50,7 @@ func _update_countdown() -> void:
 
 
 func _stop() -> void:
-	Engine.get_singleton("Win32Passthrough").set_passthrough(get_window().get_window_id(), false)
+	Engine.get_singleton("MousePassthrough").set_passthrough(get_window().get_window_id(), false)
 	timer.stop()
 	_reset()
 

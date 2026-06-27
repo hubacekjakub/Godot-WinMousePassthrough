@@ -22,14 +22,14 @@ Built for desktop overlay / widget apps where the Godot window sits on top of th
 
 ```gdscript
 func _ready() -> void:
-    if Engine.has_singleton("Win32Passthrough"):
-        Engine.get_singleton("Win32Passthrough").set_passthrough(get_window().get_window_id(), true)
+    if Engine.has_singleton("MousePassthrough"):
+        MousePassthrough.set_passthrough(get_window().get_window_id(), true)
 ```
 
 ### API
 
 ```
-Win32Passthrough.set_passthrough(window_id: int, enabled: bool) -> void
+MousePassthrough.set_passthrough(window_id: int, enabled: bool) -> void
 ```
 
 - `window_id` — Godot window ID (`get_window().get_window_id()` for the main window)
@@ -45,7 +45,7 @@ This extension calls `SetWindowLongPtr` with `WS_EX_LAYERED | WS_EX_TRANSPARENT`
 
 ## Example
 
-Clone this repository and open the root folder as a Godot 4.3+ project. The example scene (`example/example.tscn`) shows a toggle button that enables and disables passthrough at runtime.
+Clone this repository and open the root folder as a Godot 4.3+ project. The example scene (`example/example.tscn`) activates passthrough for 5 seconds with a live countdown, then restores normal input automatically.
 
 ## Building from source
 
@@ -53,8 +53,8 @@ Requires CMake 3.22+, MSVC (Visual Studio 2022), and Ninja.
 
 ```bash
 git submodule update --init --recursive
-cmake -B gdextension/build -S gdextension -G Ninja -DGODOT_TARGET=template_release
-cmake --build gdextension/build
+cmake -B gdextension/build/release -S gdextension -G Ninja -DGODOT_TARGET=template_release
+cmake --build gdextension/build/release
 ```
 
 Output DLLs are written to `addons/windows_mouse_passthrough/bin/`. The pre-built DLLs committed to this repo were built against godot-cpp pinned to Godot 4.6-stable.

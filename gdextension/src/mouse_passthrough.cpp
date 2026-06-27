@@ -1,4 +1,4 @@
-#include "win32_passthrough.h"
+#include "mouse_passthrough.h"
 #include <godot_cpp/classes/display_server.hpp>
 
 #ifdef _WIN32
@@ -8,28 +8,28 @@
 
 using namespace godot;
 
-Win32Passthrough *Win32Passthrough::singleton = nullptr;
+MousePassthrough *MousePassthrough::singleton = nullptr;
 
-Win32Passthrough *Win32Passthrough::get_singleton() {
+MousePassthrough *MousePassthrough::get_singleton() {
     return singleton;
 }
 
-Win32Passthrough::Win32Passthrough() {
+MousePassthrough::MousePassthrough() {
     ERR_FAIL_COND(singleton != nullptr);
     singleton = this;
 }
 
-Win32Passthrough::~Win32Passthrough() {
+MousePassthrough::~MousePassthrough() {
     ERR_FAIL_COND(singleton != this);
     singleton = nullptr;
 }
 
-void Win32Passthrough::_bind_methods() {
+void MousePassthrough::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_passthrough", "window_id", "enabled"),
-        &Win32Passthrough::set_passthrough);
+        &MousePassthrough::set_passthrough);
 }
 
-void Win32Passthrough::set_passthrough(int64_t window_id, bool enabled) {
+void MousePassthrough::set_passthrough(int64_t window_id, bool enabled) {
 #ifdef _WIN32
     int64_t hwnd_int = DisplayServer::get_singleton()->window_get_native_handle(
         DisplayServer::WINDOW_HANDLE, (int)window_id);

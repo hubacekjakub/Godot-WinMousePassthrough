@@ -3,5 +3,5 @@
 
 using namespace godot;
 
-void initialize_win32_passthrough_module(ModuleInitializationLevel p_level);
-void uninitialize_win32_passthrough_module(ModuleInitializationLevel p_level);
+void initialize_mouse_passthrough_module(ModuleInitializationLevel p_level);
+void uninitialize_mouse_passthrough_module(ModuleInitializationLevel p_level);
