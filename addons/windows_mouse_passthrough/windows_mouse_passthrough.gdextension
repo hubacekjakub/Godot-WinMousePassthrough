@@ -1,0 +1,7 @@
+[configuration]
+entry_symbol = "win32_passthrough_init"
+compatibility_minimum = "4.3"
+
+[libraries]
+windows.debug.x86_64 = "res://addons/windows_mouse_passthrough/bin/win32_passthrough.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/windows_mouse_passthrough/bin/win32_passthrough.windows.template_release.x86_64.dll"
