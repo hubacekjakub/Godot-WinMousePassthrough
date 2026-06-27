@@ -1,0 +1,20 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but the file format allows this.
+
+[application]
+
+config/name="Windows Mouse Passthrough Example"
+config/description="Example project for the Windows Mouse Passthrough GDExtension addon"
+run/main_scene="res://example/example.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+
+[display]
+
+window/size/viewport_width=400
+window/size/viewport_height=300
+window/per_pixel_transparency/allowed=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/windows_mouse_passthrough/plugin.cfg")
