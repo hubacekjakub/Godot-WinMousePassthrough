@@ -8,6 +8,7 @@ config/name="Windows Mouse Passthrough Example"
 config/description="Example project for the Windows Mouse Passthrough GDExtension addon"
 run/main_scene="res://example/example.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
 
 [display]
 

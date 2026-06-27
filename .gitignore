@@ -9,6 +9,8 @@ export.cfg
 gdextension/build/
 *.pdb
 *.ilk
+# Godot hot-reload lock copies (created when DLL is in use)
+**/~*
 
 # Exported game builds
 builds/
