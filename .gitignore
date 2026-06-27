@@ -1,0 +1,24 @@
+# Godot
+.godot/
+.import/
+export.cfg
+*.translation
+*.uid
+
+# GDExtension build intermediates (committed DLLs are NOT ignored)
+gdextension/build/
+*.pdb
+*.ilk
+
+# Exported game builds
+builds/
+*.apk
+*.ipa
+*.pck
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.log
