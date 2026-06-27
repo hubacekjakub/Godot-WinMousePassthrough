@@ -1,0 +1,49 @@
+name: "Build GDExtension"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "gdextension/src/**"
+      - "gdextension/CMakeLists.txt"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    name: "🔨 Build DLLs"
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Cache godot-cpp build
+        uses: actions/cache@v4
+        with:
+          path: gdextension/build
+          key: gdextension-${{ runner.os }}-${{ hashFiles('gdextension/godot-cpp/CMakeLists.txt', 'gdextension/CMakeLists.txt') }}
+
+      - name: Build debug DLL
+        run: |
+          cmake -B gdextension/build/debug -S gdextension -G Ninja `
+            -DCMAKE_BUILD_TYPE=Debug -DGODOT_TARGET=template_debug
+          cmake --build gdextension/build/debug
+
+      - name: Build release DLL
+        run: |
+          cmake -B gdextension/build/release -S gdextension -G Ninja `
+            -DCMAKE_BUILD_TYPE=Release -DGODOT_TARGET=template_release
+          cmake --build gdextension/build/release
+
+      - name: Commit updated DLLs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild GDExtension DLLs [skip ci]"
+          file_pattern: "addons/windows_mouse_passthrough/bin/*.dll"
