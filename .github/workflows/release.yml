@@ -40,7 +40,11 @@ jobs:
           cmake --build gdextension/build/release
 
       - name: Package addon
-        run: Compress-Archive -Path addons/windows_mouse_passthrough -DestinationPath windows_mouse_passthrough-${{ github.ref_name }}.zip
+        run: |
+          New-Item -ItemType Directory -Path package/windows_mouse_passthrough -Force
+          Copy-Item -Path addons/windows_mouse_passthrough/* -Destination package/windows_mouse_passthrough -Recurse
+          Get-ChildItem -Path package -Recurse -Include '*.pdb','*.ilk' | Remove-Item
+          Compress-Archive -Path package/windows_mouse_passthrough -DestinationPath windows_mouse_passthrough-${{ github.ref_name }}.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
