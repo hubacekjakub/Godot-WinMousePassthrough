@@ -1,17 +1,14 @@
-name: "Build GDExtension"
+name: "Release"
 
 on:
   push:
-    branches: [main]
-    paths:
-      - "gdextension/src/**"
-      - "gdextension/CMakeLists.txt"
-  workflow_dispatch:
+    tags:
+      - "v*.*.*"
 
 jobs:
-  build:
+  release:
     runs-on: windows-latest
-    name: "🔨 Build DLLs"
+    name: "Build and Release"
     permissions:
       contents: write
 
@@ -42,8 +39,11 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release -DGODOT_TARGET=template_release
           cmake --build gdextension/build/release
 
-      - name: Commit updated DLLs
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Package addon
+        run: Compress-Archive -Path addons/windows_mouse_passthrough -DestinationPath windows_mouse_passthrough-${{ github.ref_name }}.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          commit_message: "chore: rebuild GDExtension DLLs [skip ci]"
-          file_pattern: "addons/windows_mouse_passthrough/bin/*.dll"
+          files: windows_mouse_passthrough-${{ github.ref_name }}.zip
+          generate_release_notes: true
