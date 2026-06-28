@@ -7,14 +7,21 @@
 config/name="Windows Mouse Passthrough Example"
 config/description="Example project for the Windows Mouse Passthrough GDExtension addon"
 run/main_scene="res://example/example.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=400
 window/size/viewport_height=300
+window/size/transparent=true
 window/per_pixel_transparency/allowed=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+viewport/transparent_background=true
 
 [editor_plugins]
 
