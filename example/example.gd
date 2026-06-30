@@ -6,6 +6,7 @@ const DURATION := 5.0
 @onready var countdown_label: Label = $VBox/CountdownLabel
 @onready var progress_bar: ProgressBar = $VBox/ProgressBar
 @onready var button: Button = $VBox/Button
+@onready var always_on_top: CheckButton = $VBox/AlwaysOnTop
 @onready var timer: Timer = $Timer
 
 var _tween: Tween
@@ -15,6 +16,7 @@ var _seconds_left: int = 0
 func _ready() -> void:
 	timer.timeout.connect(_on_tick)
 	button.pressed.connect(_start)
+	always_on_top.toggled.connect(_on_always_on_top_toggled)
 
 	if not Engine.has_singleton("MousePassthrough"):
 		status_label.text = "Not available (Windows only)"
@@ -53,6 +55,10 @@ func _stop() -> void:
 	Engine.get_singleton("MousePassthrough").set_passthrough(get_window().get_window_id(), false)
 	timer.stop()
 	_reset()
+
+
+func _on_always_on_top_toggled(enabled: bool) -> void:
+	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_ALWAYS_ON_TOP, enabled)
 
 
 func _reset() -> void:

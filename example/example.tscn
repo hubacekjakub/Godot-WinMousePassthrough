@@ -57,3 +57,6 @@ show_percentage = false
 
 [node name="Button" type="Button" parent="VBox"]
 text = "Activate Passthrough (5s)"
+
+[node name="AlwaysOnTop" type="CheckButton" parent="VBox"]
+text = "Always on Top"
