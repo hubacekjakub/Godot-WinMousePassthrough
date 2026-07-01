@@ -1,6 +1,6 @@
 extends Control
 
-const DURATION := 5.0
+const DURATION := 30.0
 
 @onready var status_label: Label = $VBox/StatusLabel
 @onready var countdown_label: Label = $VBox/CountdownLabel
@@ -63,6 +63,6 @@ func _on_always_on_top_toggled(enabled: bool) -> void:
 
 func _reset() -> void:
 	button.disabled = false
-	status_label.text = "Click to test for 5 seconds"
+	status_label.text = "Click to test for 30 seconds"
 	countdown_label.text = ""
 	progress_bar.value = DURATION

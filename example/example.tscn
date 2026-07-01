@@ -40,7 +40,7 @@ horizontal_alignment = 1
 theme_override_font_sizes/font_size = 16
 
 [node name="StatusLabel" type="Label" parent="VBox"]
-text = "Click to test for 5 seconds"
+text = "Click to test for 30 seconds"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -51,12 +51,12 @@ theme_override_font_sizes/font_size = 40
 
 [node name="ProgressBar" type="ProgressBar" parent="VBox"]
 min_value = 0.0
-max_value = 5.0
-value = 5.0
+max_value = 30.0
+value = 30.0
 show_percentage = false
 
 [node name="Button" type="Button" parent="VBox"]
-text = "Activate Passthrough (5s)"
+text = "Activate Passthrough (30s)"
 
 [node name="AlwaysOnTop" type="CheckButton" parent="VBox"]
 text = "Always on Top"

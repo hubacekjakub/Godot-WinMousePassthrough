@@ -1,6 +1,6 @@
 # Windows Mouse Passthrough
 
-A Godot 4 GDExtension that makes a window fully transparent to mouse clicks on Windows, using `WS_EX_LAYERED | WS_EX_TRANSPARENT` Win32 flags.
+A Godot 4 GDExtension that makes mouse clicks pass through a window on Windows, using `WS_EX_LAYERED | WS_EX_TRANSPARENT` Win32 flags. The window itself is unaffected — it can stay fully opaque, or use whatever visual transparency your scene already has — only mouse input is let through to whatever is underneath.
 
 Built for desktop overlay / widget apps where the Godot window sits on top of the desktop but must never intercept mouse input.
 
@@ -42,6 +42,8 @@ The `Engine.has_singleton` guard is recommended so the same script runs unchange
 Godot's built-in `DisplayServer.window_set_mouse_passthrough(polygon)` defines a polygonal hit region within a single Godot window — it cannot make clicks pass through to other applications underneath. There is no Godot API for Win32 extended window styles.
 
 This extension calls `SetWindowLongPtr` with `WS_EX_LAYERED | WS_EX_TRANSPARENT` directly on the window's HWND. Both flags must be set together — `WS_EX_TRANSPARENT` alone (0x20) is not sufficient; the combination (0x80020) is required.
+
+Note that `WS_EX_LAYERED` is what makes click-through possible on Windows, but it does **not** make the window visually transparent — that's a separate concern handled by Godot's own window transparency settings (`ProjectSettings` → `display/window/per_pixel_transparency`) or your scene's background. A fully opaque window can be just as click-through as a see-through one.
 
 ## Example
 
