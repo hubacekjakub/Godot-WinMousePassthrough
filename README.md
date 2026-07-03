@@ -39,7 +39,7 @@ The `Engine.has_singleton` guard is recommended so the same script runs unchange
 
 ## Why this exists
 
-Godot's built-in `DisplayServer.window_set_mouse_passthrough(polygon)` defines a polygonal hit region within a single Godot window — it cannot make clicks pass through to other applications underneath. There is no Godot API for Win32 extended window styles.
+Godot has two built-in mouse passthrough APIs, and neither covers this use case on Windows. `DisplayServer.window_set_mouse_passthrough(polygon)` ties the click region to the paint region — on Windows, anything outside the polygon is also not drawn, so you can't have a fully visible window that's fully click-through. `Window.mouse_passthrough` (the boolean flag) is implemented via `WM_NCHITTEST`/`HTTRANSPARENT`, which per MSDN only forwards hit-testing to windows in the same thread — it doesn't reliably pass clicks to other applications. There is no Godot API for Win32 extended window styles.
 
 This extension calls `SetWindowLongPtr` with `WS_EX_LAYERED | WS_EX_TRANSPARENT` directly on the window's HWND. Both flags must be set together — `WS_EX_TRANSPARENT` alone (0x20) is not sufficient; the combination (0x80020) is required.
 
