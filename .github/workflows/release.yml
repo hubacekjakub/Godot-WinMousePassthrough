@@ -41,10 +41,10 @@ jobs:
 
       - name: Package addon
         run: |
-          New-Item -ItemType Directory -Path package/windows_mouse_passthrough -Force
-          Copy-Item -Path addons/windows_mouse_passthrough/* -Destination package/windows_mouse_passthrough -Recurse
+          New-Item -ItemType Directory -Path package/addons/windows_mouse_passthrough -Force
+          Copy-Item -Path addons/windows_mouse_passthrough/* -Destination package/addons/windows_mouse_passthrough -Recurse
           Get-ChildItem -Path package -Recurse -Include '*.pdb','*.ilk' | Remove-Item
-          Compress-Archive -Path package/windows_mouse_passthrough -DestinationPath windows_mouse_passthrough-${{ github.ref_name }}.zip
+          Compress-Archive -Path package/addons -DestinationPath windows_mouse_passthrough-${{ github.ref_name }}.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
